@@ -25,7 +25,9 @@ setup(
     packages=['pyku'],
     include_package_data=True,
     install_requires=[
-        'click'
+        'click',
+        'roku_scanner',
+        'PyInquirer'
     ],
     entry_points={
         'console_scripts': [
