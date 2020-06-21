@@ -1,4 +1,9 @@
 # coding=utf-8
+"""
+Usage:
+    All Pyku constants
+ToDos:
+"""
 STANDARD_CONFIG: dict = {
     'Root': '',
     'Files': [

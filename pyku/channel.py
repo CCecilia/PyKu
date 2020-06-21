@@ -17,6 +17,14 @@ from pyku.constants import STANDARD_CONFIG, PKKU_CONFIG
 class ChannelConfig:
     """
     Channel config class for handling config
+
+    *Attributes:
+        file (Path): Path object to the config file in the channel project
+        files (list): List of file glob paths to be zipped unpon deployment
+        retain_staging_dir (bool): Bool for retaining the zip after deployment
+        root (Path): Root path to channel
+        out_dir (Path): Path object to the out dir
+        rokus (list): List of roku configs
     """
     def __init__(self, config_file: Path):
         with config_file.open('r') as config:
@@ -27,7 +35,7 @@ class ChannelConfig:
         self.retain_staging_dir: bool = data.get('RetainStagingDir', False)
         self.root: Path = Path(data.get('Root', ''))
         self.out_dir: Path = Path(data.get('OutDir', ''))
-        self.rokus: Path = data.get('Rokus', [])
+        self.rokus: list = data.get('Rokus', [])
         if not self.out_dir.is_absolute():
             self.out_dir = self.root / self.out_dir
 
@@ -35,6 +43,26 @@ class ChannelConfig:
 class Channel:
     """
     Channel class for channel management
+
+    *Attributes:
+        channel_config (ChannelConfig, None): Channel config read in
+        staging_dir (Path, None): Staging dir to be used
+        channel_archive (Path, None): Channel archive
+        manifest_data (dict, None): Parsed manifest data
+        channel_path (Path):
+        config_file (Path):
+        has_config (bool):
+
+    *methods
+        create_config() -> None:
+
+        parse_manifest() -> None:
+
+        stage_channel_for_compilation() -> None:
+
+        archive_staged_content_to_out() -> None:
+
+        empty_dir(dir_to_empty: Path) -> None:
     """
     def __init__(self, channel_path: str):
         self.channel_config: Union[None, ChannelConfig] = None
@@ -135,15 +163,11 @@ class Channel:
                 format='zip',
                 base_dir=str(self.staging_dir)
             )
-            # self.channel_archive = channel_archive
-            self.channel_archive = Path('/Users/christiancecilia/Work/MK-LiteBright/out/Roku__4.1.2r.zip')
+            self.channel_archive = channel_archive
 
             if not self.channel_config.retain_staging_dir and self.staging_dir is not None:
                 Channel.empty_dir(self.staging_dir)
                 self.staging_dir.rmdir()
-
-
-
 
     @staticmethod
     def empty_dir(dir_to_empty: Path) -> None:

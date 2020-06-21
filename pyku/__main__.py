@@ -1,4 +1,16 @@
 # coding=utf-8
+"""
+Usage:
+    python3 -m pyku
+
+Commands:
+    deploy - create and deploys a channel archive to Roku(s)
+
+    Flags:
+        -c, --channel - Path to channel to be deployed, REQUIRED
+        --skip-discovery - skip device discovery and use only device designated in config
+ToDos:
+"""
 # standard lib imports
 from typing import Union
 # third party lib imports
@@ -13,6 +25,10 @@ import pyku.utils as utils
 
 @click.group()
 def cli():
+    """
+    Intermediatory function for click to routes commands
+    :return:
+    """
     pass
 
 
@@ -29,8 +45,8 @@ def cli():
 def deploy(channel_path: str, skip_discovery: bool):
     """
     Deploy Command
-    :param channel_path:
-    :param skip_discovery:
+    :param channel_path: Path to channel project's root dir
+    :param skip_discovery: falg to skip device discovery and use config rokus
     """
     click.echo('deploy')
     channel: Channel = Channel(channel_path)
