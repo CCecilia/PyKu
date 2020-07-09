@@ -7,6 +7,7 @@ from datetime import datetime
 from distutils.dir_util import copy_tree
 from pathlib import Path
 from typing import Union
+from zipfile import ZIP_DEFLATED, ZipFile
 # third party lib imports
 import click
 import yaml
@@ -84,7 +85,7 @@ class Channel:
         if self.manifest_data is not None:
             required_keys = {'title', 'major_version', 'minor_version', 'build_version'}
             if required_keys <= set(self.manifest_data.keys()):
-                return f'{self.manifest_data["title"]}_' \
+                return f'{self.manifest_data["title"].replace(" ", "_")}_' \
                        f'{self.manifest_data["major_version"]}.' \
                        f'{self.manifest_data["minor_version"]}.' \
                        f'{self.manifest_data["build_version"]}'
@@ -157,15 +158,17 @@ class Channel:
             if not self.channel_config.out_dir.exists():
                 self.channel_config.out_dir.mkdir(parents=True)
 
-            channel_archive: Path = self.channel_config.out_dir / f'{self.__str__()}.zip'
+            channel_archive: Path = self.channel_config.out_dir / f'{self.__str__()}'
+            os.chdir(str(self.staging_dir))
             shutil.make_archive(
                 base_name=str(channel_archive),
                 format='zip',
-                base_dir=str(self.staging_dir)
+                base_dir='.'
             )
-            self.channel_archive = channel_archive
 
-            if not self.channel_config.retain_staging_dir and self.staging_dir is not None:
+            self.channel_archive = self.channel_config.out_dir / f'{self.__str__()}.zip'
+
+            if self.staging_dir is not None and not self.channel_config.retain_staging_dir:
                 Channel.empty_dir(self.staging_dir)
                 self.staging_dir.rmdir()
 

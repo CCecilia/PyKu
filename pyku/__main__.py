@@ -9,6 +9,13 @@ Commands:
     Flags:
         -c, --channel - Path to channel to be deployed, REQUIRED
         --skip-discovery - skip device discovery and use only device designated in config
+
+    keypress - simulates a remote keypress
+
+    Flags:
+        -b, --button - Button pressed, REQUIRED
+        -c, --channel - Path to channel to be deployed, REQUIRED
+        --skip-discovery - skip device discovery and use only device designated in config
 ToDos:
 """
 # standard lib imports
@@ -73,9 +80,9 @@ def deploy(channel_path: str, skip_discovery: bool):
     selected_devices: list = []
 
     if not skip_discovery:
-        selected_devices.append(utils.run_device_discovery(channel))
+        selected_devices = utils.run_device_discovery(channel)
     else:
-        selected_devices.append(utils.get_selected_from_config(channel))
+        selected_devices = utils.get_selected_from_config(channel)
 
     # loop through selected rokus and deploy archives
     if len(selected_devices) > 0:

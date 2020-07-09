@@ -9,8 +9,9 @@ STANDARD_CONFIG: dict = {
     'Files': [
         'manifest',
         'components/**/*',
-        'source/**/*',
-        'images/**/*'
+        'components/*',
+        'source/*',
+        'images/*'
     ],
     'OutDir': '',
     'RetainStagingDir': False

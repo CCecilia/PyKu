@@ -128,9 +128,9 @@ def get_selected_from_config(channel: Channel):
     config_rokus: list = channel.channel_config.rokus
     if not len(config_rokus):
         click.echo('cannot skip device discovery without rokus designated in config')
+        exit()
 
     for roku_config in config_rokus:
-        roku_config = merge_roku_config_values_into_dict(roku_config)
         click.echo(f'found config for {roku_config.get("ip_address", "")}')
         roku: Roku = Roku(
             location=f'http://{roku_config.get("ip_address", "")}:8060/',
