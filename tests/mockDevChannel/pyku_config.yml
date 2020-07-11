@@ -1,0 +1,11 @@
+Files:
+- manifest
+- components/**/*
+- components/*
+- source/*
+- images/*
+OutDir: /Users/christiancecilia/PersonalProjects/PyKu/tests/mockDevChannel/out
+RetainStagingDir: true
+Root: /Users/christiancecilia/PersonalProjects/PyKu/tests/mockDevChannel
+Rokus:
+  - {ip_address : "10.0.0.227", password : "1234"}
