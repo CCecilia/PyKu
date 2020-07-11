@@ -20,6 +20,7 @@ ToDos:
 # standard lib imports
 import os
 import re
+import telnetlib
 from pathlib import Path
 from re import Match
 from typing import List, Union
@@ -29,7 +30,7 @@ import requests
 from roku_scanner.custom_types import DeviceInfoAttribute, DiscoveryData, Player, RokuApp
 from roku_scanner.roku import Roku as RokuDevice
 # project imports
-from pyku.constants import KEYPRESS_COMMANDS
+from pyku.constants import DEBUG_CONSOLE_PORT, KEYPRESS_COMMANDS
 
 
 class Roku(RokuDevice):
@@ -300,6 +301,19 @@ class Roku(RokuDevice):
             return messages
 
         return [{'status': 'error', 'msg': 'command failed'}]
+
+    def start_debugger_session(self):
+        """
+        Starts telnet brs console session
+        :return:
+        """
+        try:
+            session = telnetlib.Telnet(self.get_ip_address(), DEBUG_CONSOLE_PORT)
+            while True:
+                text = session.read_until(b"\n").decode("utf-8")
+                print(text)
+        except Exception as e:
+            print(e)
 
 
 

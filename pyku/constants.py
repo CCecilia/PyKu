@@ -34,3 +34,5 @@ KEYPRESS_COMMANDS: list = [
     'search',
     'enter'
 ]
+DEBUG_CONSOLE_PORT = 8085
+DEBUG_SERVER_PORT = 8085

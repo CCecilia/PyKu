@@ -52,7 +52,8 @@ def deploy(channel_path: str, skip_discovery: bool, debugger: bool):
     """
     Deploy Command
     :param channel_path: Path to channel project's root dir
-    :param skip_discovery: falg to skip device discovery and use config rokus
+    :param skip_discovery: flag to skip device discovery and use config rokus
+    :param debugger: flag to run telnet debugger
     """
     click.echo('deploy')
     channel: Channel = Channel(channel_path)
@@ -96,6 +97,10 @@ def deploy(channel_path: str, skip_discovery: bool, debugger: bool):
 
     if deploy_status == "success" and debugger:
         print("run debugger")
+        if len(selected_devices) > 0:
+            click.echo('Debugger can only be run one device')
+        selected_debug_roku: Roku = selected_devices[0]
+        selected_debug_roku.start_debugger_session()
 
 
 @cli.command()
