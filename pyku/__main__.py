@@ -47,7 +47,8 @@ def cli():
     required=True
 )
 @click.option('--skip-discovery', 'skip_discovery', flag_value=True)
-def deploy(channel_path: str, skip_discovery: bool):
+@click.option('--debugger', 'debugger', flag_value=True)
+def deploy(channel_path: str, skip_discovery: bool, debugger: bool):
     """
     Deploy Command
     :param channel_path: Path to channel project's root dir
@@ -78,6 +79,7 @@ def deploy(channel_path: str, skip_discovery: bool):
     click.echo('creating archive')
     channel.archive_staged_content_to_out()
     selected_devices: list = []
+    deploy_status: str = "false"
 
     if not skip_discovery:
         selected_devices = utils.run_device_discovery(channel)
@@ -89,7 +91,11 @@ def deploy(channel_path: str, skip_discovery: bool):
         for selected in selected_devices:
             result_msgs: list = selected.deploy_archive(channel.channel_archive)
             for msg in result_msgs:
-                click.echo(f'{selected.friendly_model_name} | Status {msg["status"]} | {msg["msg"]}')
+                deploy_status = msg["status"]
+                click.echo(f'{selected.friendly_model_name} | Status {deploy_status} | {msg["msg"]}')
+
+    if deploy_status == "success" and debugger:
+        print("run debugger")
 
 
 @cli.command()
