@@ -145,11 +145,11 @@ class Channel:
                         if not to_path.parent.exists():
                             to_path.parent.mkdir(parents=True)
                         try:
-                            if len(self.channel_config.constants) > 0:
+                            if len(self.channel_config.const_replacements) > 0:
                                 try:
                                     with from_path.open('r', encoding='utf-8') as from_file:
                                         file_data = from_file.read()
-                                        for const_replacement in self.channel_config.constants:
+                                        for const_replacement in self.channel_config.const_replacements:
                                             # handle value conversion to brs
                                             value_replacement: Union[None, any] = const_replacement["value"]
 
@@ -162,6 +162,8 @@ class Channel:
                                                     value_replacement = "true"
                                                 else:
                                                     value_replacement = "false"
+                                            elif isinstance(value_replacement, int) or isinstance(value_replacement, float):
+                                                value_replacement = str(value_replacement)
 
                                             file_data = file_data.replace(
                                                 const_replacement["const"],
@@ -186,12 +188,13 @@ class Channel:
                 self.channel_config.out_dir.mkdir(parents=True)
 
             channel_archive: Path = self.channel_config.out_dir / f'{self.__str__()}'
-            os.chdir(str(self.staging_dir))
-            shutil.make_archive(
-                base_name=str(channel_archive),
-                format='zip',
-                base_dir='.'
-            )
+            if self.staging_dir.exists():
+                os.chdir(str(self.staging_dir))
+                shutil.make_archive(
+                    base_name=str(channel_archive),
+                    format='zip',
+                    base_dir='.'
+                )
 
             self.channel_archive = self.channel_config.out_dir / f'{self.__str__()}.zip'
 

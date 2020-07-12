@@ -13,3 +13,4 @@ ConstReplacements:
   - {const: "CONST__ENV", value: "prod"}
   - {const: "CONST__USE_DEBUG", value: true}
   - {const: "CONST_INT", value: 123}
+  - {const: "CONST_SCENE_TITLE", value: "PyKu Test Channel"}

@@ -3,14 +3,15 @@ sub Main()
     m.port = CreateObject("roMessagePort")
     screen.setMessagePort(m.port)
     scene = screen.CreateScene("TestChannelScene")
-    screen.show()
 
     m.global = screen.getGlobalNode()
     m.global.addFields({
-        "constants": {
-            "environment": "prod"
-        }
+        "environment": "prod"
+        "useDebug": true
+        "someCountConst": 123
+        "overhangTitle": "PyKu Test Channel"
     })
+
     screen.show()
 
     while(true)

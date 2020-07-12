@@ -3,16 +3,15 @@ sub Main()
     m.port = CreateObject("roMessagePort")
     screen.setMessagePort(m.port)
     scene = screen.CreateScene("TestChannelScene")
-    screen.show()
 
     m.global = screen.getGlobalNode()
     m.global.addFields({
-        "constants": {
-            "environment": CONST__ENV,
-            "useDebug": CONST__USE_DEBUG,
-            "someCountConst": CONST_INT
-        }
+        "environment": CONST__ENV
+        "useDebug": CONST__USE_DEBUG
+        "someCountConst": CONST_INT
+        "overhangTitle": CONST_SCENE_TITLE
     })
+
     screen.show()
 
     while(true)

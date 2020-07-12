@@ -314,6 +314,3 @@ class Roku(RokuDevice):
                 print(text)
         except Exception as e:
             print(e)
-
-
-

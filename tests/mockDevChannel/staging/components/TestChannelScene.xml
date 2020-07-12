@@ -1,7 +1,20 @@
-<?xml version = "1.0" encoding = "utf-8" ?>
-
-<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
-
-<component name = "TestChannelScene" extends = "OverhangPanelSetScene" >
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="TestChannelScene" extends="OverhangPanelSetScene" >
     <script type="text/brightscript" uri="TestChannelScene.brs" />
+    <children>
+        <ContentNode id="menuListContentNode" >
+            <ContentNode
+                    title="menu 1"
+                    description = "lorem ipsum"/>
+            <ContentNode
+                    title="menu 2"
+                    description="lorem ipsum"/>
+            <ContentNode
+                    title="menu 3"
+                    description="lorem ipsum"/>
+            <ContentNode
+                    title="menu 4"
+                    description="lorem ipsum"/>
+        </ContentNode>
+    </children>
 </component>

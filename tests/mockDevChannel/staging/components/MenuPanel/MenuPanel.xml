@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="MenuPanel" extends="Panel" >
+    <script type="text/brightscript" uri="menuPanel.brs" />
+    <children>
+        <Rectangle
+            id="detailsRectangle"
+            translation="[0, 40]"
+            height="460"
+            width="1040"
+            color="0x101010C0">
+            <Label
+                id="titleLabel"
+                translation="[505, 15]"
+                height="430"
+                width="490"
+                wrap="true"
+                font="font:MediumBoldSystemFont" />
+            <Label
+                id="descriptionLabel"
+                translation="[15, 40]"
+                height="430"
+                width="490"
+                wrap="true"
+                font="font:MediumBoldSystemFont" />
+        </Rectangle>
+    </children>
+</component>
