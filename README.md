@@ -42,3 +42,7 @@ PyKu uses [SemVer](http://semver.org/) for versioning. For the versions availabl
 * **Christian Cecilia** - *Initial work*
 
 See also the list of [contributors](https://github.com/CCecilia/PyKu/graphs/contributors) who participated in this project.
+
+## Thanks
+
+[Roku Dev](https://github.com/rokudev) for test channel assets. Also this is great place for code samples to learn from.
