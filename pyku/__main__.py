@@ -96,7 +96,6 @@ def deploy(channel_path: str, skip_discovery: bool, debugger: bool):
                 click.echo(f'{selected.friendly_model_name} | Status {deploy_status} | {msg["msg"]}')
 
     if deploy_status == "success" and debugger:
-        print("run debugger")
         if len(selected_devices) > 0:
             click.echo('Debugger can only be run one device')
         selected_debug_roku: Roku = selected_devices[0]

@@ -7,7 +7,6 @@ from datetime import datetime
 from distutils.dir_util import copy_tree
 from pathlib import Path
 from typing import Union
-from zipfile import ZIP_DEFLATED, ZipFile
 # third party lib imports
 import click
 import yaml
@@ -26,6 +25,7 @@ class ChannelConfig:
         root (Path): Root path to channel
         out_dir (Path): Path object to the out dir
         rokus (list): List of roku configs
+        const_replacements (list): List of channel replacement const
     """
     def __init__(self, config_file: Path):
         with config_file.open('r') as config:
@@ -37,6 +37,7 @@ class ChannelConfig:
         self.root: Path = Path(data.get('Root', ''))
         self.out_dir: Path = Path(data.get('OutDir', ''))
         self.rokus: list = data.get('Rokus', [])
+        self.const_replacements: list = data.get('ConstReplacements', [])
         if not self.out_dir.is_absolute():
             self.out_dir = self.root / self.out_dir
 
@@ -144,7 +145,33 @@ class Channel:
                         if not to_path.parent.exists():
                             to_path.parent.mkdir(parents=True)
                         try:
-                            shutil.copyfile(str(from_path), str(to_path))
+                            if len(self.channel_config.constants) > 0:
+                                try:
+                                    with from_path.open('r', encoding='utf-8') as from_file:
+                                        file_data = from_file.read()
+                                        for const_replacement in self.channel_config.constants:
+                                            # handle value conversion to brs
+                                            value_replacement: Union[None, any] = const_replacement["value"]
+
+                                            if value_replacement is None or value_replacement == "null":
+                                                value_replacement = "Invalid"
+                                            elif isinstance(value_replacement, str):
+                                                value_replacement = f'\"{value_replacement}\"'
+                                            elif isinstance(value_replacement, bool):
+                                                if value_replacement:
+                                                    value_replacement = "true"
+                                                else:
+                                                    value_replacement = "false"
+
+                                            file_data = file_data.replace(
+                                                const_replacement["const"],
+                                                value_replacement
+                                            )
+                                        to_path.write_text(file_data)
+                                except UnicodeDecodeError:
+                                    shutil.copyfile(str(from_path), str(to_path))
+                            else:
+                                shutil.copyfile(str(from_path), str(to_path))
                         except FileNotFoundError:
                             click.echo(f'failed to copy {str(from_path)} into staging')
                     elif from_path.is_dir():

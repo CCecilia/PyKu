@@ -1,8 +1,12 @@
 title=PyKu Test Channel
-subtitle=For testing PyKu
+subtitle=Testing channel project
+
 major_version=1
 minor_version=0
-build_version=0
+build_version=00000
+
+splash_screen_sd=pkg:/images/hd_splash.jpg
 splash_color=#662D91
-splash_screen_hd=pkg:/images/rsgde_splash_hd.jpg
-ui_resolutions=hd
+splash_min_time=1000
+
+ui_resolutions = "hd"

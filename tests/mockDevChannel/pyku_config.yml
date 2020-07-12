@@ -9,3 +9,7 @@ RetainStagingDir: true
 Root: /Users/christiancecilia/PersonalProjects/PyKu/tests/mockDevChannel
 Rokus:
   - {ip_address : "10.0.0.227", password : "1234"}
+ConstReplacements:
+  - {const: "CONST__ENV", value: "prod"}
+  - {const: "CONST__USE_DEBUG", value: true}
+  - {const: "CONST_INT", value: 123}

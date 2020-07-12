@@ -5,6 +5,16 @@ sub Main()
     scene = screen.CreateScene("TestChannelScene")
     screen.show()
 
+    m.global = screen.getGlobalNode()
+    m.global.addFields({
+        "constants": {
+            "environment": CONST__ENV,
+            "useDebug": CONST__USE_DEBUG,
+            "someCountConst": CONST_INT
+        }
+    })
+    screen.show()
+
     while(true)
         msg = wait(0, m.port)
         msgType = type(msg)

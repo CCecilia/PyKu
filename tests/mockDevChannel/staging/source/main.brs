@@ -5,6 +5,14 @@ sub Main()
     scene = screen.CreateScene("TestChannelScene")
     screen.show()
 
+    m.global = screen.getGlobalNode()
+    m.global.addFields({
+        "constants": {
+            "environment": "prod"
+        }
+    })
+    screen.show()
+
     while(true)
         msg = wait(0, m.port)
         msgType = type(msg)

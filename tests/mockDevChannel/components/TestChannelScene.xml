@@ -1,4 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<component name="TestChannelScene" extends="Scene">
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "TestChannelScene" extends = "OverhangPanelSetScene" >
     <script type="text/brightscript" uri="TestChannelScene.brs" />
 </component>
