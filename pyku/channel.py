@@ -38,6 +38,7 @@ class ChannelConfig:
         self.out_dir: Path = Path(data.get('OutDir', ''))
         self.rokus: list = data.get('Rokus', [])
         self.const_replacements: list = data.get('ConstReplacements', [])
+        self.key_sequences: list = data.get('KeySequences', [])
         if not self.out_dir.is_absolute():
             self.out_dir = self.root / self.out_dir
 

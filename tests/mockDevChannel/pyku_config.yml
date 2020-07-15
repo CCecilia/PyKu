@@ -14,3 +14,5 @@ ConstReplacements:
   - {const: "CONST__USE_DEBUG", value: true}
   - {const: "CONST_INT", value: 123}
   - {const: "CONST_SCENE_TITLE", value: "PyKu Test Channel"}
+KeySequences:
+  - ["right", "Right", "LEFT", {"delay": 10}, "left"]

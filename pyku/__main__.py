@@ -19,7 +19,7 @@ Commands:
 ToDos:
 """
 # standard lib imports
-from typing import Union
+import threading
 # third party lib imports
 import click
 # project imports
@@ -48,7 +48,8 @@ def cli():
 )
 @click.option('--skip-discovery', 'skip_discovery', flag_value=True)
 @click.option('--debugger', 'debugger', flag_value=True)
-def deploy(channel_path: str, skip_discovery: bool, debugger: bool):
+@click.option('--key-sequence', type=int)
+def deploy(channel_path: str, skip_discovery: bool, debugger: bool, key_sequence: int):
     """
     Deploy Command
     :param channel_path: Path to channel project's root dir
@@ -100,6 +101,26 @@ def deploy(channel_path: str, skip_discovery: bool, debugger: bool):
             click.echo('Debugger can only be run one device')
         selected_debug_roku: Roku = selected_devices[0]
         selected_debug_roku.start_debugger_session()
+
+    if isinstance(key_sequence, int):
+        config_key_sequences = channel.channel_config.key_sequences
+        config_key_sequences_len = len(config_key_sequences)
+        if config_key_sequences_len == 0:
+            click.echo('No key sequences in config found')
+        elif key_sequence > config_key_sequences_len:
+            click.echo('No matching key sequences in config found')
+        else:
+            key_sequence_to_execute = config_key_sequences[key_sequence]
+            click.echo(f'executing key_sequence: {key_sequence}')
+            print(key_sequence_to_execute)
+            for key_press in key_sequence_to_execute:
+                if isinstance(key_press, str):
+                    for selected in selected_devices:
+                        selected.send_remote_command(key_press)
+                # elif isinstance(key_press, dict) and "delay" in key_press:
+                #     threading.Timer(key_press["delay", selected.send_remote_command, key_press])
+
+        print(key_sequence)
 
 
 @cli.command()

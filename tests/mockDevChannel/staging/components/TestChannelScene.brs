@@ -23,7 +23,6 @@ end sub
 
 sub showMenuPanel()
     if not m.top.panelSet.isGoingBack
-        ? "panels", m.top.panelSet.numPanels
         if m.top.panelSet.numPanels <= 2 then m.top.panelSet.appendChild(m.menuPanel)
         menuTitle = m.menuPanel.findNode("titleLabel")
         menuDescription = m.menuPanel.findNode("descriptionLabel")
@@ -33,13 +32,3 @@ sub showMenuPanel()
         m.leftMenuPanel.setFocus(true)
     end if
 end sub
-
-'function onKeyEvent(key as String, press as Boolean) as Boolean
-'    if press then
-'        if key = "back"
-'            ? "back press"
-'        end if
-'    end if
-'
-'    return false
-'end function
