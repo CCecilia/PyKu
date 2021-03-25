@@ -5,7 +5,7 @@ idna==2.9
 prompt-toolkit==1.0.14
 Pygments==2.6.1
 PyInquirer==1.0.3
-PyYAML==5.3.1
+PyYAML==5.4
 regex==2020.6.8
 requests==2.23.0
 roku-scanner==1.0.4
