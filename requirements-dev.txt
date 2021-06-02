@@ -11,7 +11,7 @@ requests==2.23.0
 roku-scanner==1.0.4
 six==1.15.0
 tqdm==4.46.1
-urllib3==1.25.9
+urllib3==1.26.5
 wcwidth==0.2.4
 xmltodict==0.12.0
 setuptools~=41.2.0
